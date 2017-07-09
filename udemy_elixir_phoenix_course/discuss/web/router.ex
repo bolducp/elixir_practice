@@ -20,8 +20,12 @@ defmodule Discuss.Router do
     get "/topics/new", TopicController, :new
     post "/topics", TopicController, :create
     get "/topics/:id/edit", TopicController, :edit
+<<<<<<< Updated upstream
     put "/topics/:id", TopicController, :update
     delete "/topics/:id", TopicController, :delete
+=======
+    put "/topics/:id/", TopicController, :update
+>>>>>>> Stashed changes
   end
 
   # Other scopes may use custom stacks.

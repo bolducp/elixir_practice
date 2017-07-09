@@ -30,14 +30,22 @@ defmodule Discuss.TopicController do
 
   def edit(conn, %{"id" => topic_id}) do
     topic = Repo.get(Topic, topic_id)
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
     changeset = Topic.changeset(topic)
 
     render conn, "edit.html", changeset: changeset, topic: topic
   end
 
   def update(conn, %{"id" => topic_id, "topic" => topic}) do
+<<<<<<< Updated upstream
     old_topic = Repo.get(Topic, topic_id)
     changeset = Topic.changeset(old_topic, topic)
+=======
+    changeset =  Repo.get(Topic, topic_id) |> Topic.changeset(topic)
+>>>>>>> Stashed changes
 
     case Repo.update(changeset) do
       {:ok, _topic} ->
@@ -45,6 +53,7 @@ defmodule Discuss.TopicController do
         |> put_flash(:info, "Topic Updated")
         |> redirect(to: topic_path(conn, :index))
       {:error, changeset} ->
+<<<<<<< Updated upstream
         render conn, "edit.html", changeset: changeset, topic: old_topic
     end
   end
@@ -55,6 +64,10 @@ defmodule Discuss.TopicController do
     conn
     |> put_flash(:info, "Topic Deleted")
     |> redirect(to: topic_path(conn, :index))
+=======
+        render conn, "edit.html", changeset: changeset
+    end
+>>>>>>> Stashed changes
   end
 
 end
