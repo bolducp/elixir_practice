@@ -7,30 +7,23 @@
 # Your API will be guess(actual,range), where range is an Elixir range.
 
 defmodule Chop do
-  def guess(actual, range) do
-    first_guess = get_half(range)
-    check_guess(actual, first_guess, range)
+  def guess(actual, first..last = range) do
+    guess = first + div(last - first, 2)
+    IO.puts "Guessing: #{guess}"
+    check_guess(actual, guess, range)
   end
 
-  def check_guess(actual, guess, _) when actual == guess do
+  defp check_guess(actual, guess, _) when actual == guess do
     "Correct: #{guess}"
   end
 
-  def check_guess(actual, guess, first..last) when actual > guess do
-    IO.puts "Guessing: #{guess}"
+  defp check_guess(actual, guess, _first..last) when actual > guess do
     next_range = (guess + 1)..last
-    next_guess = get_half(next_range)
-    check_guess(actual, next_guess, next_range)
+    guess(actual, next_range)
   end
 
-  def check_guess(actual, guess, first..last) do
-    IO.puts "Guessing: #{guess}"
+  defp check_guess(actual, guess, first.._last) do
     next_range = first..(guess - 1)
-    next_guess = get_half(next_range)
-    check_guess(actual, next_guess, next_range)
-  end
-
-  defp get_half(first..last) do
-    first + div(last - first, 2)
+    guess(actual, next_range)
   end
 end
