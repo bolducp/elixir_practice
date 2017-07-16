@@ -4,10 +4,8 @@
 # iex> MyList.mapsum[1, 2, 3], &(&1 * &1)
 
 defmodule MyList do
-  def mapsum(list, func), do: _mapsum(list, 0, func)
-
-  def _mapsum([], sum, _func), do: sum
-  def _mapsum([ head | tail ], sum, func), do: _mapsum(tail, func.(head) + sum, func)
+  def mapsum([], _func), do: 0
+  def mapsum([ head | tail ], func), do: func.(head) + mapsum(tail, func)
 end
 
 IO.puts MyList.mapsum([1, 2, 3], &(&1 * &1))
